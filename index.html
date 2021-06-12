@@ -1,21 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Vue.js Sample</title>
+    <title>jchan wedding timer</title>
+		<style type="text/css">
+			img{
+				width: 50%;
+			}
+		</style>
   </head>
   <body>
-    <img src="./jchan.jpeg"></img>
-    <div id="app">
-      {{ message }}
-    </div>
+		<div id="content">
+			<h1>JCHAN for sale. soon be married</h1>
+			<img src="./jchan.jpeg" alt="jchan" ></img>
+			<div id="app">
+				<h2>{{ timestamp }}</h2>
+			</div>
+		</div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       new Vue({
         el: "#app",
         data: {
-          message: "Hello Vue.js!"
-        }
+          message: "Hello Vue.js!",
+          timestamp: "" 
+        },
+				created() {
+					setInterval(this.getNow, 1);
+				},
+				methods: {
+					getNow: function() {
+						const dday = new Date('December 13, 2021 12:00:00')
+						const today = new Date();
+						const distance = dday - today
+
+						var _millisecond = 1;
+						var _second = _millisecond * 1000;
+						var _minute = _second * 60;
+						var _hour = _minute * 60;
+						var _day = _hour * 24;
+						var days = Math.floor(distance / _day);
+						var hours = Math.floor((distance % _day) / _hour);
+						var minutes = Math.floor((distance % _hour) / _minute);
+						var seconds = Math.floor((distance % _minute) / _second);
+						var milliseconds = Math.floor((distance % _second) / _millisecond);
+
+						const dateTime = days+" days "+hours+":"+minutes+":"+seconds+"."+milliseconds
+						this.timestamp = dateTime;
+					}
+				}
       });
     </script>
 
